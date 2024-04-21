@@ -1,1 +1,0 @@
-worker: node RSEUBOT.js
