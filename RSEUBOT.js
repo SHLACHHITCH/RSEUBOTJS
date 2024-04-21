@@ -33,8 +33,8 @@ async function updateStatus() {
         const gameInfo = await queryGameServer(game, address, port);
         if (gameInfo) {
             let mapName = gameInfo.map;
-            if (mapName.startsWith('TE-')) {
-                mapName = mapName.substring(3); // Удаляем "TE-" из начала названия карты
+            if (mapName.startsWith('RSTE-')) {
+                mapName = mapName.substring(5); // Удаляем "TE-" из начала названия карты
             }
             const numPlayers = gameInfo.numplayers;
 
