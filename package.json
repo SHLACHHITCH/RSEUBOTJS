@@ -1,12 +1,13 @@
 {
   "name": "discord-bot",
   "version": "1.0.0",
-  "description": "Discord bot deployed on Heroku",
+  "description": "Discord bot deployed on Render",
   "main": "RSEUBOT.js",
   "scripts": {
     "start": "node RSEUBOT.js"
   },
   "dependencies": {
-    "discord.js": "^14.14.1"
+    "discord.js": "^14.1.0",
+    "node-fetch": "^3.3.2"
   }
 }
