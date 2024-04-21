@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
-const { GameDig } = require('gamedig');
+const fetch = require('node-fetch');
 
 // Создаем новый экземпляр клиента Discord с указанием намерений
 const client = new Client({ 
@@ -14,29 +14,40 @@ const client = new Client({
 // Токен вашего бота
 const TOKEN = process.env.DISCORD_TOKEN;
 
-// Функция для запроса информации о сервере игры
-async function queryGameServer(game, address, port) {
-    return GameDig.query({
-        type: game,
-        host: address,
-        port: port,
-    });
+async function retrieveStats() {
+  const response = await fetch('https://www.gs4u.net/en/s/147078.html');
+  const html = await response.text();
+
+  const playersOnline = parseInt(html.split('<b itemprop="playersOnline">')[1].split('<')[0].trim());
+  const currentMap = html.split('Search server with a map: ')[1].split('"')[0];
+  const scoreBoard = [];
+
+  const serverPlayers = html.split('<table class="serverplayers tablesorter table table-striped table-hover" style="width:100%;">')[1];
+  for (let i = 1; i < playersOnline; i++) {
+    const username = serverPlayers.split('<td class="other_color_text">')[i]?.split('<')[0];
+    const score = parseInt(serverPlayers.split('<td class="score">')[i]?.split('<')[0]);
+    const time = serverPlayers.split('<td class="time">')[i]?.split('<')[0];
+
+    scoreBoard[i] = { username, score, time };
+  }
+
+  scoreBoard.shift();
+  scoreBoard.sort((a, b) => a.score - b.score);
+  scoreBoard.reverse();
+
+  return { playersOnline, currentMap, scoreBoard };
 }
 
 // Функция для обновления статуса бота с использованием метода setPresence
 async function updateStatus() {
-    const game = 'redorchestra2';
-    const address = '85.107.96.131';
-    const port = '7777';
-
     try {
-        const gameInfo = await queryGameServer(game, address, port);
-        if (gameInfo) {
-            let mapName = gameInfo.map;
+        const stats = await retrieveStats();
+        if (stats) {
+            let mapName = stats.currentMap;
             if (mapName.startsWith('RSTE-')) {
                 mapName = mapName.substring(5); // Удаляем "TE-" из начала названия карты
             }
-            const numPlayers = gameInfo.numplayers;
+            const numPlayers = stats.playersOnline;
 
             // Обновляем статус с использованием метода setPresence
             client.user.setPresence({
