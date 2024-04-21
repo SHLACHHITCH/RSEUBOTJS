@@ -4,7 +4,8 @@
   "description": "Discord bot deployed on Render",
   "main": "RSEUBOT.js",
   "scripts": {
-    "start": "node RSEUBOT.js"
+    "start": "node RSEUBOT.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "discord.js": "^14.1.0",
