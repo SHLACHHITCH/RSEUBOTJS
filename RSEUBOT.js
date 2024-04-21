@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 // Создаем новый экземпляр клиента Discord с указанием намерений
 const client = new Client({ 
