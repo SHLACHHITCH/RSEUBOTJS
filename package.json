@@ -2,7 +2,7 @@
   "name": "discord-bot",
   "version": "1.0.0",
   "description": "Discord bot deployed on Heroku",
-  "main": "RO2EUBOT.js",
+  "main": "RSEUBOT.js",
   "scripts": {
     "start": "node RO2EUBOT.js"
   },
