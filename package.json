@@ -4,7 +4,7 @@
   "description": "Discord bot deployed on Heroku",
   "main": "RSEUBOT.js",
   "scripts": {
-    "start": "node RO2EUBOT.js"
+    "start": "node RSEUBOT.js"
   },
   "dependencies": {
     "discord.js": "^14.14.1",
