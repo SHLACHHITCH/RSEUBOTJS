@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const express = require('express');
+const keep_alive = require('./keep_alive.js');
 
 // Создаем новый экземпляр клиента Discord с указанием намерений
 const client = new Client({ 
