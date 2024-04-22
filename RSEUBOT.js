@@ -1,5 +1,4 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
-const express = require('express');
 const keep_alive = require('./keep_alive.js');
 
 // Создаем новый экземпляр клиента Discord с указанием намерений
@@ -14,20 +13,6 @@ const client = new Client({
 
 // Токен вашего бота
 const TOKEN = process.env.DISCORD_TOKEN;
-
-// Создаем экземпляр Express
-const app = express();
-const PORT = process.env.PORT || 3001; // Изменяем порт для второго бота
-
-// Пустой обработчик маршрута, чтобы удовлетворить требования Render по открытым портам
-app.get('/', (req, res) => {
-  res.send('Bot is running!');
-});
-
-// Запускаем HTTP-сервер
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 // Функция для запроса информации о сервере игры
 async function retrieveStats() {
@@ -98,17 +83,11 @@ async function updateStatus() {
 // Функция для отправки keep-alive запроса к серверу
 async function sendKeepAliveRequest() {
     try {
-        await fetch('http://localhost:' + PORT); // Отправляем запрос к корневому маршруту
-        console.log('Keep-alive request sent.');
+        // Убран код отправки keep-alive запроса
     } catch (error) {
         console.error('Ошибка при отправке keep-alive запроса:', error);
     }
 }
-
-
-
-
-
 
 // Событие при успешном запуске бота
 client.once('ready', () => {
@@ -117,10 +96,6 @@ client.once('ready', () => {
     updateStatus();
     // Обновляем статус каждые 1 минуту (60 000 миллисекунд)
     setInterval(updateStatus, 60000);
-
-
-    // Отправляем keep-alive запрос каждые 5 минут (300 000 миллисекунд)
-    setInterval(sendKeepAliveRequest, 120000);
 });
 
 // Запускаем бота
