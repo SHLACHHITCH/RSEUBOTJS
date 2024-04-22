@@ -16,7 +16,7 @@ const TOKEN = process.env.DISCORD_TOKEN;
 
 // Создаем экземпляр Express
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001; // Изменяем порт для второго бота
 
 // Пустой обработчик маршрута, чтобы удовлетворить требования Render по открытым портам
 app.get('/', (req, res) => {
