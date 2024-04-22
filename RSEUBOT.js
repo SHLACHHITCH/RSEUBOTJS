@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
+const express = require('express');
 
 // Создаем новый экземпляр клиента Discord с указанием намерений
 const client = new Client({ 
@@ -13,6 +14,21 @@ const client = new Client({
 // Токен вашего бота
 const TOKEN = process.env.DISCORD_TOKEN;
 
+// Создаем экземпляр Express
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Пустой обработчик маршрута, чтобы удовлетворить требования Render по открытым портам
+app.get('/', (req, res) => {
+  res.send('Bot is running!');
+});
+
+// Запускаем HTTP-сервер
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+// Функция для запроса информации о сервере игры
 async function retrieveStats() {
   const response = await fetch('https://www.gs4u.net/en/s/147078.html');
   const html = await response.text();
