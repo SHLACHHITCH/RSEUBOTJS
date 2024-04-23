@@ -80,15 +80,6 @@ async function updateStatus() {
     }
 }
 
-// Функция для отправки keep-alive запроса к серверу
-async function sendKeepAliveRequest() {
-    try {
-        // Убран код отправки keep-alive запроса
-    } catch (error) {
-        console.error('Ошибка при отправке keep-alive запроса:', error);
-    }
-}
-
 // Событие при успешном запуске бота
 client.once('ready', () => {
     console.log('Бот запущен!');
